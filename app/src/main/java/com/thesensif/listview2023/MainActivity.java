@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 
@@ -80,6 +82,24 @@ public class MainActivity extends AppCompatActivity {
                     records.add(new Record((int) (Math.random() * 100), listNombres.get((int) (Math.random() * 15))));
                 }
                 // notificar l'adapter dels canvis al model
+                adapter.notifyDataSetChanged();
+            }
+        });
+
+        Button b2 = (Button) findViewById(R.id.button2);
+        b2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Comparator<Record> comparator = new Comparator<Record>() {
+                    @Override
+                    public int compare(Record record1, Record record2) {
+                        // Invertir el orden (de mayor a menor)
+                        return Integer.compare(record2.intents, record1.intents);
+                    }
+                };
+
+                // Ordenar la lista de registros utilizando el Comparator
+                Collections.sort(records, comparator);
                 adapter.notifyDataSetChanged();
             }
         });
