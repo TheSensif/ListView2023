@@ -8,6 +8,10 @@ import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,7 +36,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        String[] nombres = {"Sergi","Alejandro","Miguel","Alex","Sara","Maria","Carla","Jose","Javier",
+                "Noa","Alberto","Ivan","Cristian","Biel","Nati"};
+        List<String> listNombres = Arrays.asList(nombres);
         // Inicialitzem model
         records = new ArrayList<Record>();
         // Afegim alguns exemples
@@ -66,8 +72,12 @@ public class MainActivity extends AppCompatActivity {
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                for (int i = 0; i < 3; i++) {
-                    records.add(new Record(100, "Anonymous"));
+                Random random = new Random();
+
+                // Generar un número aleatorio en el rango de 15 a 20 (incluyendo ambos extremos)
+                int ran = random.nextInt(6) + 15;
+                for (int i=0;i<ran;i++) {
+                    records.add(new Record((int) (Math.random() * 100), listNombres.get((int) (Math.random() * 15))));
                 }
                 // notificar l'adapter dels canvis al model
                 adapter.notifyDataSetChanged();
